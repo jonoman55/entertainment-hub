@@ -123,8 +123,9 @@ const Search = () => {
                         vote_average={c.vote_average}
                     />
                 ))}
-                {searchText && !content &&
-                    (type ? <h2>No Series Found</h2> : <h2>No Movies Found</h2>)}
+                {searchText && !content && (
+                    type ? <h2>No Series Found</h2> : <h2>No Movies Found</h2>
+                )}
             </div>
             {numOfPages > 1 && (
                 <CustomPagination setPage={setPage} numOfPages={numOfPages} />

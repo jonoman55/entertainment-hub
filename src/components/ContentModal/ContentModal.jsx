@@ -34,17 +34,25 @@ export default function TransitionsModal({ children, media_type, id }) {
     const handleClose = () => setOpen(false);
 
     const fetchData = async () => {
-        const { data } = await axios.get(
-            `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-        );
-        setContent(data);
+        try {
+            const { data } = await axios.get(
+                `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+            );
+            setContent(data);   
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const fetchVideo = async () => {
-        const { data } = await axios.get(
-            `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-        );
-        setVideo(data.results[0]?.key);
+        try {
+            const { data } = await axios.get(
+                `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+            );
+            setVideo(data.results[0]?.key);   
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -80,20 +88,20 @@ export default function TransitionsModal({ children, media_type, id }) {
                         <div className={classes.paper}>
                             <div className="ContentModal">
                                 <img
+                                    className="ContentModal__portrait"
                                     src={content.poster_path
                                             ? `${img_500}/${content.poster_path}`
                                             : unavailable}
                                     alt={content.name || content.title}
-                                    className="ContentModal__portrait"
                                 />
                                 <img
+                                    className="ContentModal__landscape"
                                     src={
                                         content.backdrop_path
                                             ? `${img_500}/${content.backdrop_path}`
                                             : unavailableLandscape
                                     }
                                     alt={content.name || content.title}
-                                    className="ContentModal__landscape"
                                 />
                                 <div className="ContentModal__about">
                                     <span className="ContentModal__title">

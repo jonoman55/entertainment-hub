@@ -16,6 +16,15 @@ const useStyles = makeStyles({
     },
 });
 
+const darkTheme = createTheme({
+    palette: {
+        type: "dark",
+        primary: {
+            main: "#fff",
+        },
+    },
+});
+
 const Search = () => {
     const classes = useStyles();
     const [type, setType] = useState(0);
@@ -23,15 +32,6 @@ const Search = () => {
     const [page, setPage] = useState(1);
     const [content, setContent] = useState([]);
     const [numOfPages, setNumOfPages] = useState();
-  
-    const darkTheme = createTheme({
-        palette: {
-            type: "dark",
-            primary: {
-                main: "#fff",
-            },
-        },
-    });
   
     const fetchSearch = async () => {
         try {

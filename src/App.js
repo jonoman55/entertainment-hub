@@ -8,23 +8,21 @@ import BottomNavigation from './components/MainNav/MainNav';
 import { Container } from '@material-ui/core';
 import './App.css';
 
-function App() {
-    return (
-        <Router>
-            <Header />
-            <div className="app">
-                <Container>
-                    <Switch>
-                        <Route path="/" component={Trending} exact />
-                        <Route path="/movies" component={Movies} />
-                        <Route path="/series" component={Series} />
-                        <Route path="/search" component={Search} />
-                    </Switch>
-                </Container>
-            </div>
-            <BottomNavigation />
-        </Router>
-    );
-}
+const App = () => (
+    <Router>
+        <Header />
+        <div className="app">
+            <Container>
+                <Switch>
+                    <Route path="/" component={Trending} exact />
+                    <Route path="/movies" component={Movies} />
+                    <Route path="/series" component={Series} />
+                    <Route path="/search" component={Search} />
+                </Switch>
+            </Container>
+        </div>
+        <BottomNavigation />
+    </Router>
+);
 
 export default App;

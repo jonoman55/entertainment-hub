@@ -15,9 +15,9 @@ const useStyles = makeStyles({
 
 export default function MainNav() {
     const classes = useStyles();
-    const [value, setValue] = useState(0);
     const history = useHistory();
-
+    const [value, setValue] = useState(0);
+    
     useEffect(() => {
         if (value === 0) {
             history.push("/");

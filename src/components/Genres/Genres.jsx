@@ -10,6 +10,25 @@ const Genres = ({
   type,
   setPage,
 }) => {
+    const fetchGenres = async () => {
+        try {
+            const { data } = await axios.get(
+                `https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+            );
+            setGenres(data.genres);   
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchGenres();
+        return () => {
+            setGenres({}); // unmounting
+        };
+        // eslint-disable-next-line
+    }, []);
+
     const handleAdd = (genre) => {
         setSelectedGenres([...selectedGenres, genre]);
         setGenres(genres.filter((g) => g.id !== genre.id));
@@ -23,21 +42,6 @@ const Genres = ({
         setGenres([...genres, genre]);
         setPage(1);
     };
-
-    const fetchGenres = async () => {
-        const { data } = await axios.get(
-            `https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-        );
-        setGenres(data.genres);
-    };
-
-    useEffect(() => {
-        fetchGenres();
-        return () => {
-            setGenres({}); // unmounting
-        };
-        // eslint-disable-next-line
-    }, []);
 
     return (
         <div style={{ padding: "6px 0" }}>

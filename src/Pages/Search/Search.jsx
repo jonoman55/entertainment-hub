@@ -8,8 +8,8 @@ import ClearIcon from "../../components/ClearIcon/ClearIcon";
 
 const useStyles = makeStyles(({
     search: {
-        display: 'flex',
-        margin: '15px 0',
+        display: "flex",
+        margin: "15px 0",
     },
     searchBox: {
         flex: 1,
@@ -35,11 +35,13 @@ const Search = () => {
   
     const fetchSearch = async () => {
         try {
-            const { data } = await axios.get(
-                `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
-            );
-            setContent(data.results);
-            setNumOfPages(data.total_pages);
+            if (searchText) {
+                const { data } = await axios.get(
+                    `https://api.themoviedb.org/3/search/${type ? "tv" : "movie"}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+                );
+                setContent(data.results);
+                setNumOfPages(data.total_pages);
+            }
         } catch (error) {
             console.error(error);
         }
@@ -52,10 +54,25 @@ const Search = () => {
     }, [type, page]);
   
     const handleClear = () => {
-        setSearchText('');
+        setSearchText("");
         setContent([]);
         setPage(1);
         setNumOfPages(0);
+    };
+
+    const handleKeyPress = ({ key }) => {
+        if (key === "Enter") {
+            fetchSearch();
+        }
+    };
+
+    const handleChange = ({ target: { value } }) => {
+        setSearchText(value);
+    };
+
+    const handleTabChange = (event, newValue) => {
+        setType(newValue);
+        setPage(1);
     };
 
     return (
@@ -66,9 +83,10 @@ const Search = () => {
                         className={classes.searchBox}
                         type="text"
                         placeholder="Search"
-                        autoComplete='off'
+                        autoComplete="off"
                         value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
+                        onChange={handleChange}
+                        onKeyPress={handleKeyPress}
                         endAdornment={searchText &&
                             <ClearIcon onClick={handleClear} />
                         }
@@ -85,10 +103,7 @@ const Search = () => {
                     value={type}
                     indicatorColor="primary"
                     textColor="primary"
-                    onChange={(event, newValue) => {
-                        setType(newValue);
-                        setPage(1);
-                    }}
+                    onChange={handleTabChange}
                     style={{ paddingBottom: 5 }}
                     aria-label="disabled tabs example"
                 >

@@ -6,7 +6,7 @@ import CustomPagination from "../../components/Pagination/CustomPagination";
 import SingleContent from "../../components/SingleContent/SingleContent";
 import ClearIcon from "../../components/ClearIcon/ClearIcon";
 
-const useStyles = makeStyles(({
+const useStyles = makeStyles({
     search: {
         display: "flex",
         margin: "15px 0",
@@ -14,7 +14,7 @@ const useStyles = makeStyles(({
     searchBox: {
         flex: 1,
     },
-}));
+});
 
 const Search = () => {
     const classes = useStyles();

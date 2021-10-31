@@ -4,6 +4,7 @@
   object-fit: contain;
   padding: 10px;
 }
+/*TODO : fix carousel image bug - 2 or less pics enlarge modal*/
 .carouselItem__img {
   border-radius: 10px;
   margin-bottom: 5px;
